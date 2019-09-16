@@ -288,14 +288,7 @@ body {
 		  <input type="text" id="total" name="total" placeholder="$0">
 		  <p></p>
 		  <input type="submit" value="Submit">
-		  		  <!--select id="country" name="country">
-			<option value="australia">Australia</option>
-			<option value="canada">Canada</option>
-			<option value="usa">USA</option>
-		  </select>
-		  <label for="subject">Subject</label>
-		  <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
-		  <input type="submit" value="Submit"-->
+		  		  
 		</form>
 	</div>
 	  </div>
