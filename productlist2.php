@@ -1,4 +1,57 @@
-!DOCTYPE html>
+<?php
+if(isset($_POST["productname2"])){
+$productname = filter_input(INPUT_POST, 'productname2');
+$weight = filter_input(INPUT_POST, 'weight2');
+$unit = filter_input(INPUT_POST, 'unit2');
+$unitprice = filter_input(INPUT_POST, 'unitprice2');
+$total = filter_input(INPUT_POST, 'total2');
+date_default_timezone_set('America/Los_Angeles');
+$date = date('Y-m-d');
+$message = ""; 
+   $host = "localhost";
+        $dbusername = "root";
+        $dbpassword = "";
+        $dbname = "poswebsite";
+                $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+                if(mysqli_connect_error()){
+                    die('Connect Error ('.mysqli_connect_errno() .')'
+                    . mysqli_connect_error());
+                }else{
+                    if(!empty($unitprice)){
+                        if (!empty($unit)){
+                        $total = $unitprice * $unit;
+                        }
+                         else if(!empty($weight)){
+                        $total = $weight * $unitprice;
+                        }
+                    }
+                    if(!empty($total)){
+                        if(!empty($weight)){
+                            $unitprice = $total/$weight;
+                        }
+                        else if (!empty($unit)){
+                            $unitprice = $total/$unit;
+                        }
+                    }
+                    $unitprice = number_format((float) $unitprice, 2, '.', '');
+                    
+                    $sql = "UPDATE products SET productname = '$productname', weight = '$weight',
+                    unit = '$unit', unitprice = '$unitprice', total = '$total'
+                    WHERE productname = '$productname'";
+                     if($conn->query($sql)){
+                      header( 'Location: productlist2.php' );
+                  }else{ 
+                      $message = "* This Product Name already exists";
+                  }
+                   
+                    $conn->close();
+                }
+
+
+              }
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -224,7 +277,7 @@ body {
 <div class="right" style="overflow-y:auto">
   <div class="centered">
   <form  method="post" action="productlist2.php" > 
-	      <input  type="text" name="searchinput2" placeholder="Enter Product Name Here"> 
+	      <input  type="text" name="searchinput2" placeholder="Enter Product Name Here" value='searchinput2'> 
           
 
           <input  type="submit" name="searchbutton" value="Search"> 
@@ -264,13 +317,18 @@ body {
 
             if($result-> num_rows > 0){
                 while($row = $result-> fetch_assoc()){
+                  $productname = $row["productname"];
+                  $weight = $row["weight"];
+                  $unit = $row["unit"];
+                  $unitprice = $row["unitprice"];
+                  $total = $row["total"];
                     echo "<tr><td>". $row["productname"] . "</td>
                     <td>". $row["weight"] . "g" . "</td>
                     <td>". $row["unit"] . "</td>
                     <td>". "$" . $row["unitprice"] . "</td>
-                    <td>". "$" . $row["total"] .
-                    '<td><input type="submit" name="viewbutton'.'" value="view"/> </td>' .
-                    '<td><input type="submit" name="editbutton'.'" value="edit"/> </td></tr>';
+                    <td>". "$" . $row["total"] . "</td><td>" .
+                    '<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Edit</button>
+                    </td></tr>';
                 }
                 echo "</table>";
             }else{
@@ -281,6 +339,56 @@ body {
         
 
         ?>
+        <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+        <h2>Edit Product</h2>
+        <form method="post" action="productlist2.php">
+        <label for="productname2">Product Name</label>
+            <input type="text" name="productname2" 
+            value="<?php 
+            echo $productname;
+          ?>" placeholder="">
+        <p></p>
+        <label for="weight">Weight in Grams</label>
+        <input type="text" name="weight2"
+        value="<?php 
+            echo $weight;
+          ?>" placeholder="">
+        <p></p>
+        <label for="unit">Unit Count</label>
+        <input type="text" name="unit2"
+        value="<?php 
+            echo $unit;
+          ?>" placeholder="">
+        <p></p>
+        <label for="unitprice2">Unit Price</label>
+        <input type="text" name="unitprice2" 
+        value="<?php 
+            echo $unitprice;
+          ?>"placeholder="">
+        <p></p>
+        <label for="total">Total Price</label>
+        <input type="text" name="total2"
+        value="<?php
+            echo $total;
+          ?>" placeholder="">
+        <p></p>
+        <input type="submit" value="Submit">
+      </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
     </table>
         </div>
 </div>
@@ -290,7 +398,57 @@ body {
 
 
 <!--- Footer -->
+<?php
+if(isset($_POST["productname2"])){
+$productname = filter_input(INPUT_POST, 'productname2');
+$weight = filter_input(INPUT_POST, 'weight2');
+$unit = filter_input(INPUT_POST, 'unit2');
+$unitprice = filter_input(INPUT_POST, 'unitprice2');
+$total = filter_input(INPUT_POST, 'total2');
+date_default_timezone_set('America/Los_Angeles');
+$date = date('Y-m-d');
+$message = ""; 
+   $host = "localhost";
+        $dbusername = "root";
+        $dbpassword = "";
+        $dbname = "poswebsite";
+                $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+                if(mysqli_connect_error()){
+                    die('Connect Error ('.mysqli_connect_errno() .')'
+                    . mysqli_connect_error());
+                }else{
+                    if(!empty($unitprice)){
+                        if (!empty($unit)){
+                        $total = $unitprice * $unit;
+                        }
+                         else if(!empty($weight)){
+                        $total = $weight * $unitprice;
+                        }
+                    }
+                    if(!empty($total)){
+                        if(!empty($weight)){
+                            $unitprice = $total/$weight;
+                        }
+                        else if (!empty($unit)){
+                            $unitprice = $total/$unit;
+                        }
+                    }
+                    $unitprice = number_format((float) $unitprice, 2, '.', '');
+                    
+                    $sql = "UPDATE products SET productname = '$productname'
+                    WHERE productname = '$productname'";
+                     if($conn->query($sql)){
+                      header( 'Location: productlist2.php' );
+                  }else{ 
+                      $message = "* This Product Name already exists";
+                  }
+                   
+                    $conn->close();
+                }
 
+
+              }
+?>
 
 
 

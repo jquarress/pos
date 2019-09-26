@@ -8,12 +8,18 @@ $total = filter_input(INPUT_POST, 'total');
 date_default_timezone_set('America/Los_Angeles');
 $date = date('Y-m-d');
 $message = "";
-if(!empty($productname)){   
+  
                 $host = "localhost";
                 $dbusername = "root";
                 $dbpassword = "";
                 $dbname = "poswebsite";
-                $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+			
+		
+		
+
+	
+
                 if(mysqli_connect_error()){
                     die('Connect Error ('.mysqli_connect_errno() .')'
                     . mysqli_connect_error());
@@ -36,18 +42,10 @@ if(!empty($productname)){
                     }
                     $unitprice = number_format((float) $unitprice, 2, '.', '');
                     
-                    $sql = "INSERT INTO products (productname, weight, unit, unitprice, total, date)
-                    values ('$productname', '$weight', '$unit', '$unitprice', '$total', '$date')";
-                    if($conn->query($sql)){
-                        header( 'Location: productlist.php' );
-                    }else{ 
-                        $message = "* This Product Name already exists";
-                    }
-                    $conn->close();
+                  
                 }
-}else{
-    $message = "* All Fields Must Be Filled Out";
-}
+
+
 ?>
 
 
@@ -198,6 +196,12 @@ body {
   <div class="centered">
 
 <!--side bar-->
+<?php 
+$result = mysqli_query($conn, "SELECT productname 
+FROM products WHERE productname = 'super glue';");
+while ($row = $result->fetch_assoc()) {
+			echo $row['productname'];
+			}?>
 <div class="tab">
 	<button class="tablinks" onclick="openCity(event, 'patients')">
 		<i class="fas fa-user" style='font-size:24px;color:rgb(4, 6, 129)'></i>
@@ -272,7 +276,11 @@ body {
 		<form method="post" action="newproduct.php">
 		  <label for="productname2">Product Name</label>
           <input type="text" id="pname" name="productname2" 
-          value="<?php echo $_POST["productname"]; ?>">
+          value="<?php $result = mysqli_query($conn, "SELECT productname 
+				FROM products WHERE productname = 'biiij carts';");
+				while ($row = $result->fetch_assoc()) {
+					echo $row['productname'];
+				}?>" placeholder="">
 		  <p></p>
 		  <label for="stateid">Weight in Grams</label>
 		  <input type="text" id="weight" name="weight" placeholder="">
@@ -288,6 +296,7 @@ body {
 		  <p></p>
 		  <input type="submit" value="Submit">
 		</form>
+	
 	</div>
 	  </div>
 	</div>

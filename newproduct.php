@@ -5,6 +5,7 @@ $weight = filter_input(INPUT_POST, 'weight');
 $unit = filter_input(INPUT_POST, 'unit');
 $unitprice = filter_input(INPUT_POST, 'unitprice');
 $total = filter_input(INPUT_POST, 'total');
+$productType = filter_input(INPUT_POST, 'productType');
 date_default_timezone_set('America/Los_Angeles');
 $date = date('Y-m-d');
 $message = "";
@@ -36,8 +37,8 @@ if(!empty($productname)){
                     }
                     $unitprice = number_format((float) $unitprice, 2, '.', '');
                     
-                    $sql = "INSERT INTO products (productname, weight, unit, unitprice, total, date)
-                    values ('$productname', '$weight', '$unit', '$unitprice', '$total', '$date')";
+                    $sql = "INSERT INTO products (productname, weight, unit, unitprice, total, date, productType)
+                    values ('$productname', '$weight', '$unit', '$unitprice', '$total', '$date', '$productType')";
                     if($conn->query($sql)){
                         header( 'Location: productlist.php' );
                     }else{ 
@@ -167,7 +168,7 @@ body {
 <div class="header">
 <nav class="navbar navbar-expand-md navbar-light sticky-top">
 <div class="container-fluid">
-	<a class="navbar-brand" href="patientlist.php"><img src="img/shoplogo.jpg" height="55" width="75"></a>
+	<a class="navbar-brand" href="pos.php"><img src="img/shoplogo.jpg" height="55" width="75"></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 	data-target="#navbarResponsive">
 	<span class="navbar-toggler-icon"></span>
@@ -228,7 +229,7 @@ body {
 	  </div>
 	  
 	  <div id="register" class="tabcontent">
-			<h5><a class="nav-link" href="#">Register</a></h5> 
+			<h5><a class="nav-link" href="register.php">Register</a></h5> 
 	  </div>
 	  
 	  <div id="inventory" class="tabcontent">
@@ -270,12 +271,24 @@ body {
 		<!--img src="/w3images/map.jpg" style="width:100%"-->
 	  </div>
 			<h2>New Product</h2>
-		  <h6><p class="error"><?php echo $message?></p></h6>
+		  	<h6><p class="error"><?php echo $message?></p></h6>
 		<form method="post" action="newproduct.php">
-		  <label for="productname">Product Name</label>
-		  <input type="text" id="pname" name="productname" placeholder="Product Name Here">
-		  <p></p>
-		  <label for="stateid">Weight in Grams</label>
+		  	<label for="productname">Product Name</label>
+		  	<input type="text" id="pname" name="productname" placeholder="Product Name Here">
+			  <p></p>
+			  <label for="productType">Product Type</label>
+		 	 <select name ="productType">
+  			<option name="flowers">Flowers</option>
+  			<option name="vapeCarts">Vape Carts</option>
+  			<option name="concentrates">Concentrates</option>
+			 <option name="edibles">Edibles</option>
+			 <option name="glass">Glass</option>
+			 <option name="topicals">Topicals</option>
+			 <option name="prerolls">Prerolls</option>
+			 <option name="other">Other</option>
+			</select>
+			<p></p>
+		  <label for="weight">Weight in Grams</label>
 		  <input type="text" id="weight" name="weight" placeholder="0g">
 		  <p></p>
 		  <label for="unit">Unit Count</label>
@@ -287,7 +300,7 @@ body {
           <label for="total">Total Price</label>
 		  <input type="text" id="total" name="total" placeholder="$0">
 		  <p></p>
-		  <input type="submit" value="Submit">
+		  <input type="submit" value="Submit" onclick="myFunction()">
 		  		  
 		</form>
 	</div>
@@ -296,8 +309,13 @@ body {
   </div>
     </div>
 
-
-
+<p id="demo"></p>
+<script>
+	function myFunction() {
+  		var productType = document.getElementById("productType").value;
+  		document.getElementById("demo").innerHTML = productType;
+	}
+</script>
 
 <!--- Footer -->
 
