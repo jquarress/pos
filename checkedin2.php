@@ -122,7 +122,7 @@ body {
 <div class="header">
 <nav class="navbar navbar-default navbar-fixed-top navbar-light sticky-top">
 <div class="container-fluid">
-	<a class="navbar-brand" href="pos.html"><img src="img/shoplogo.jpg" height="55" width="75"></a>
+	<a class="navbar-brand" href="pos.php"><img src="img/shoplogo.jpg" height="55" width="75"></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 	data-target="#navbarResponsive">
 	<span class="navbar-toggler-icon"></span>

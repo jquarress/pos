@@ -1,3 +1,35 @@
+<?php
+    $host = "localhost";
+    $dbusername = "root";
+    $dbpassword = "";
+    $dbname = "poswebsite";
+    $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+    if(mysqli_connect_error()){
+        die('Connect Error ('.mysqli_connect_errno() .')'
+        . mysqli_connect_error());
+    }else{       
+        $sql = "SELECT productname, weight, unit, unitprice, total 
+        from products";
+        $result = $conn-> query($sql);
+       $grandtotal = 0;
+        if($result-> num_rows > 0){
+            while($row = $result-> fetch_assoc()){
+              $productname = $row["productname"];
+              $weight = $row["weight"];
+              $unit = $row["unit"];
+              $unitprice = $row["unitprice"];
+              $total = $row["total"];
+                 "<tr><td>". $row["productname"] . "</td>
+                <td>". $row["weight"] . "g" . "</td>
+                <td>". $row["unit"] . "</td>
+                <td>". "$" . $row["unitprice"] . "</td>
+                <td>". "$" . $row["total"] . "</td><td>";
+                $grandtotal = $grandtotal + $total;
+            }
+        }
+        $conn->close();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +132,7 @@
 <div class="header">
 <nav class="navbar navbar-expand-md navbar-light sticky-top">
 <div class="container-fluid">
-	<a class="navbar-brand" href="pos.html"><img src="img/shoplogo.jpg" height="55" width="75"></a>
+	<a class="navbar-brand" href="pos.php"><img src="img/shoplogo.jpg" height="55" width="75"></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 	data-target="#navbarResponsive">
 	<span class="navbar-toggler-icon"></span>
@@ -161,7 +193,7 @@
 	  </div>
 	  
 	  <div id="register" class="tabcontent">
-			<h5><a class="nav-link" href="#">Register</a></h5> 
+			<h5><a class="nav-link" href="register.php">Register</a></h5> 
 	  </div>
 	  
 	  <div id="inventory" class="tabcontent">
@@ -207,7 +239,7 @@
 			<div class="box">
 				<i class="far fa-money-bill-alt" style='font-size:48px;color:rgb(53, 151, 14)'></i>
 				<p>Total Sales:</p>
-				<p><b>0$</b></p>
+				<p><b>$ <?=$grandtotal;?></b></p>
 			</div>
 		</div>
 		<div class="col-md-12">
