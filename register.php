@@ -166,7 +166,7 @@
                             if($result-> num_rows > 0){
                                 while($row = $result-> fetch_assoc()){
                                  $productname = $row["productname"];
-                                 echo "<button type='button' class='btn btn-secondary btn-lg'>$productname</button>"; 
+                                 echo "<button type='button' class='btn btn-secondary btn-lg' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
                                  }
                             }else{
                                 echo "no products found in this category";
@@ -216,8 +216,7 @@
                         if($result-> num_rows > 0){
                             while($row = $result-> fetch_assoc()){
                                 $productname = $row["productname"];
-                                echo "<button type='button' class='btn btn-secondary btn-lg' data-toggle='modal' 
-                                data-target='#myModal'>$productname</button>"; 
+                                echo "<button type='button' class='btn btn-secondary btn-lg'>$productname</button>"; 
                               }
                         }else{
                             echo "no products found in this category";
@@ -368,23 +367,11 @@
         <input type="text" name="weight2"
          placeholder="">
         <p></p>
-        <label for="unit">Unit Count</label>
-        <input type="text" name="unit2"
-         placeholder="">
-        <p></p>
-        <label for="unitprice2">Unit Price</label>
-        <input type="text" name="unitprice2" 
-        placeholder="">
-        <p></p>
-        <label for="total">Total Price</label>
-        <input type="text" name="total2"
-        placeholder="">
-        <p></p>
         <input type="submit" value="Submit">
       </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="button btn-default" data-dismiss="modal">Close</button>
 
         </div>
       </div>
