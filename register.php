@@ -144,7 +144,7 @@
 		<div class="col-md-12">
 			<div class="row">
 				<div class="side col-md-2" style="overflow-y:auto"> 
-					<button type="button" class="button btn-primary btn-lg" onclick="flower()" name="myFlower">
+					<button type="button" class="button btn-primary btn-lg" onclick="flower()">
 						Flower
 					</button> 
 					<button type="button" class="button btn-primary btn-lg" onclick="vapeCarts()">
@@ -169,7 +169,9 @@
 						Other
 					</button>
 				</div>
-				<div class="col-md-6 orderwindow" background-color="red">
+				<div class="col-md-6 orderwindow">
+                    <p>Products Added to Cart:</p>
+                    <hr class="light">
 				</div>
 				<div class="col-md-3" style="overflow:auto">
 				</div>
@@ -379,7 +381,7 @@
                     }   ?>";
                         }
                     </script>
-                    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -388,15 +390,21 @@
         </div>
         <div class="modal-body">
         
-        <h2><p id="demo1"></p><script>
-function myFunction() {
-  var x = document.getElementById('$productname').value;
-  document.getElementById("demo1").innerHTML = x;
-}
-</script></h2>
+        <h2><p id="demo1"></p>
+            <script>
+            function myFunction() {
+            var x = document.getElementById('$productname').value;
+            document.getElementById("demo1").innerHTML = x;
+            }
+            </script>
+        </h2>
         <form method="post" action="register.php">
         <label for="weight">weight in grams</label>
             <input type="text" name="weight" 
+             placeholder="">
+        <p></p>
+        <label for="unitcount">Unit Qty:</label>
+            <input type="text" name="unitcount" 
              placeholder="">
         <p></p>
         <label for="price">Price $</label>
@@ -407,7 +415,7 @@ function myFunction() {
       </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="button btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="closebutton btn-default" data-dismiss="modal">Close</button>
 
         </div>
       </div>
