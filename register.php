@@ -99,14 +99,21 @@
             color:white;
         }
         .button {
-            width: 130px;
+            width: 120px;
+            height: 60px;
             font-size: 18px;
+            text-align: left;
+            padding: 1px;
+            
         }
         .side{
             height: 300px;
         }
         .items{
             height: 260px;
+        }
+        .orderwindow{
+            background-color: rgba(118, 130, 121, 0.1);
         }
     </style>
     
@@ -162,9 +169,9 @@
 						Other
 					</button>
 				</div>
-				<div class="col-md-5">
+				<div class="col-md-6 orderwindow" background-color="red">
 				</div>
-				<div class="col-md-4" style="overflow:auto">
+				<div class="col-md-3" style="overflow:auto">
 				</div>
 			</div>
 			<div class="row">
