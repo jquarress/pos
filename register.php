@@ -174,11 +174,11 @@
 				</div>
 				<div class="col-md-6 orderwindow" style="overflow:auto">
                     <p>Products Added to Cart:</p>
-                    <hr class="light">
+                    <hr>
 				</div>
                 <div class="col-md-3 pricewindow" style="overflow:auto">
                     <p>Cost of Items in Cart:</p>
-                    <hr class="light">
+                    <hr>
 				</div>
 			</div>
 			<div class="row">
