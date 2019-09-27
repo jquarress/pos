@@ -115,6 +115,9 @@
         .orderwindow{
             background-color: rgba(118, 130, 121, 0.1);
         }
+        .pricewindow{
+            background-color: rgba(26, 124, 82, 0.15);
+        }
     </style>
     
 </head>
@@ -169,11 +172,13 @@
 						Other
 					</button>
 				</div>
-				<div class="col-md-6 orderwindow">
+				<div class="col-md-6 orderwindow" style="overflow:auto">
                     <p>Products Added to Cart:</p>
                     <hr class="light">
 				</div>
-				<div class="col-md-3" style="overflow:auto">
+                <div class="col-md-3 pricewindow" style="overflow:auto">
+                    <p>Cost of Items in Cart:</p>
+                    <hr class="light">
 				</div>
 			</div>
 			<div class="row">
