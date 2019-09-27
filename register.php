@@ -55,6 +55,25 @@
         ::-webkit-scrollbar {
             width: 0px;
         }
+        input[type=submit]{
+            background-color: blue;
+            border: none;
+            color: white;
+            padding:3px 9px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+            size
+        }
+        input[type=text], select {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
 	</style>
 
 	<style>
@@ -357,14 +376,14 @@
           <h4 class="modal-title"></h4>
         </div>
         <div class="modal-body">
-        <h2>Edit Product</h2>
-        <form method="post" action="productlist.php">
-        <label for="productname2">Product Name</label>
-            <input type="text" name="productname2" 
+        <h2>blueberry muffins</h2>
+        <form method="post" action="register.php">
+        <label for="weight">weight in grams</label>
+            <input type="text" name="weight" 
              placeholder="">
         <p></p>
-        <label for="weight">Weight in Grams</label>
-        <input type="text" name="weight2"
+        <label for="price">Price $</label>
+        <input type="text" name="price"
          placeholder="">
         <p></p>
         <input type="submit" value="Submit">
