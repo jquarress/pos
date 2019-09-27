@@ -98,6 +98,10 @@
             background-color: blue;
             color:white;
         }
+        .button {
+            width: 130px;
+            font-size: 18px;
+        }
         .side{
             height: 300px;
         }
@@ -185,7 +189,7 @@
                             if($result-> num_rows > 0){
                                 while($row = $result-> fetch_assoc()){
                                  $productname = $row["productname"];
-                                 echo "<button type='button' class='btn btn-secondary btn-lg' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
+                                 echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
                                  }
                             }else{
                                 echo "no products found in this category";
@@ -376,7 +380,13 @@
           <h4 class="modal-title"></h4>
         </div>
         <div class="modal-body">
-        <h2>blueberry muffins</h2>
+        
+        <h2><p id="demo1"></p><script>
+function myFunction() {
+  var x = document.getElementById('$productname').value;
+  document.getElementById("demo1").innerHTML = x;
+}
+</script></h2>
         <form method="post" action="register.php">
         <label for="weight">weight in grams</label>
             <input type="text" name="weight" 
