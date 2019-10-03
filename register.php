@@ -183,6 +183,7 @@
 			<div class="row">
 				<div class="items col-md-12" style="overflow-x:auto">
                 <p id="demo"></p>
+                
                     <script>
                         function flower() {
                         document.getElementById("demo").innerHTML =
@@ -253,8 +254,11 @@
                             }else{
                                 echo "no products found in this category";
                             }
-                        }?>;
+                        }?><script>";
                         }
+                    
+                        </script>
+                    <script>
                         function vapeCarts() {
                         document.getElementById("demo").innerHTML =
                         "<?php 
