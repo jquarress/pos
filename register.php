@@ -203,10 +203,7 @@
                                 while($row = $result-> fetch_assoc()){
                                  $productname = $row["productname"];
                                  echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
-                               ?><script>"
-                                 
-                                     </script>
-                                     <?php
+                             
                                   echo "<div class='modal fade' id='myModal' role='dialog'>
                                  <div class='modal-dialog'>
                                  <div class='modal-content'>
