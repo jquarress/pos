@@ -93,7 +93,6 @@
             color: black;
             cursor:pointer;
         }
-
         .btn:hover {
             background-color: blue;
             color:white;
@@ -252,7 +251,6 @@
                                    
                                  </div>
                                </div>";
-
                                         }
                                     
                             }else{
@@ -490,5 +488,3 @@
 <!-- View in Browser: Drew's #1 Trending YouTube Tutorial -->
 
 <!-- End View in Browser: Drew's #1 Trending YouTube Tutorial -->
-
-
