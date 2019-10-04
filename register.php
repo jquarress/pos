@@ -203,9 +203,9 @@
                             if($result-> num_rows > 0){
                                 while($row = $result-> fetch_assoc()){
                                  $productname = $row["productname"];
-                                 echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
+                                 echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button> 
                              
-                                  echo "<div class='modal fade' id='myModal' role='dialog'>
+                                 <div class='modal fade' id='myModal' role='dialog'>
                                  <div class='modal-dialog'>
                                  <div class='modal-content'>
                                      <div class='modal-header'>
@@ -216,15 +216,7 @@
                                      <h2><p id='blah'></p><script>
                                        $('button').click(function() {
                                          document.getElementById('blah').innerHTML = this.id;
-                                     });</script><h2>
-                                     <h2><p id='demo1'></p>
-                                         <script>
-                                         function myFunction() {
-                                         var x = document.getElementById('$productname').value;
-                                         document.getElementById('demo1').innerHTML = x;
-                                         }
-                                         </script>
-                                     </h2>
+                                     });</script></h2>
                                      <form method='post' action='register.php'>
                                      <label for='weight'>weight in grams</label>
                                          <input type='text' name='weight' 
@@ -435,48 +427,7 @@
                     }   ?>";
                         }
                     </script>
-    <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h2><script></script><h2>
-          <h4 class="modal-title"></h4>
-        </div>
-        <div class="modal-body">
-        
-        <h2><p id="demo1"></p>
-            <script>
-            function myFunction() {
-            var x = document.getElementById('$productname').value;
-            document.getElementById("demo1").innerHTML = x;
-            }
-            </script>
-        </h2>
-        <form method="post" action="register.php">
-        <label for="weight">weight in grams</label>
-            <input type="text" name="weight" 
-             placeholder="">
-        <p></p>
-        <label for="unitcount">Unit Qty:</label>
-            <input type="text" name="unitcount" 
-             placeholder="">
-        <p></p>
-        <label for="price">Price $</label>
-        <input type="text" name="price"
-         placeholder="">
-        <p></p>
-        <input type="submit" value="Submit">
-      </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="closebutton btn-default" data-dismiss="modal">Close</button>
-
-        </div>
-      </div>
-      
-    </div>
-  </div>
+    
                 </div>
 			</div>
         </div>
