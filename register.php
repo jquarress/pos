@@ -48,7 +48,7 @@
 
 	<style>
 		body {
-		  background-image: url("img/random.png");
+		
 		  background-position: 50% 50%;
           background-repeat: repeat;
         }
