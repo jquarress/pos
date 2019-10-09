@@ -182,12 +182,8 @@
 			</div>
 			<div class="row">
 				<div class="items col-md-12" style="overflow-x:auto">
-                <p id="demo"></p>
-                
-                    <script>
-                        function flower() {
-                        document.getElementById("demo").innerHTML =
-                        "</script><?php 
+            <div id="flower">
+                <?php 
                         $host = "localhost";
                         $dbusername = "root";
                         $dbpassword = "";
@@ -198,7 +194,7 @@
                             . mysqli_connect_error());
                         }else{
                             $sql = "SELECT productname, weight, unit, unitprice, total 
-                            from products";
+                            from products WHERE productType = 'flowers'";
                             $result = $conn-> query($sql);
                             if($result-> num_rows > 0){
                                 while($row = $result-> fetch_assoc()){
@@ -209,14 +205,10 @@
                             }else{
                                 echo "no products found in this category";
                             }
-                        }?><script>";
-                        }
-                    
-                        </script>
-                    <script>
-                        function vapeCarts() {
-                        document.getElementById("demo").innerHTML =
-                        "<?php 
+                        }?>
+            </div>
+            <div id="vape carts">
+            <?php 
                         $host = "localhost";
                         $dbusername = "root";
                         $dbpassword = "";
@@ -237,11 +229,10 @@
                         }else{
                             echo "no products found in this category";
                         }
-                    }   ?>";
-                        }
-                        function concentrates() {
-                        document.getElementById("demo").innerHTML = 
-                        "<?php 
+                    }   ?>
+            </div>
+            <div id="concentrates">
+            <?php 
                         $host = "localhost";
                         $dbusername = "root";
                         $dbpassword = "";
@@ -262,11 +253,10 @@
                         }else{
                             echo "no products found in this category";
                         }
-                    }   ?>";
-                        }
-                        function edibles() {
-                        document.getElementById("demo").innerHTML = 
-                        "<?php 
+            }?>
+            </div>
+            <div id="edibles">
+            <?php 
                         $host = "localhost";
                         $dbusername = "root";
                         $dbpassword = "";
@@ -287,11 +277,10 @@
                         }else{
                             echo "no products found in this category";
                         }
-                    }   ?>";
-                        }
-                        function glass() {
-                        document.getElementById("demo").innerHTML = 
-                        "<?php 
+                    }   ?>
+            </div>
+            <div id="glass">
+            <?php 
                         $host = "localhost";
                         $dbusername = "root";
                         $dbpassword = "";
@@ -312,11 +301,10 @@
                         }else{
                             echo "no products found in this category";
                         }
-                    }   ?>";
-                        }
-                        function topicals() {
-                        document.getElementById("demo").innerHTML = 
-                        "<?php 
+                    }   ?>
+            </div>
+            <div id="topicals">
+            <?php 
                         $host = "localhost";
                         $dbusername = "root";
                         $dbpassword = "";
@@ -337,11 +325,10 @@
                         }else{
                             echo "no products found in this category";
                         }
-                    }   ?>";
-                        }
-                        function prerolls() {
-                        document.getElementById("demo").innerHTML = 
-                        "<?php 
+                    }   ?>
+            </div>
+            <div id="prerolls">
+            <?php 
                         $host = "localhost";
                         $dbusername = "root";
                         $dbpassword = "";
@@ -362,11 +349,10 @@
                         }else{
                             echo "no products found in this category";
                         }
-                    }   ?>";
-                        }
-                        function other() {
-                        document.getElementById("demo").innerHTML = 
-                        "<?php 
+                    }   ?>
+            </div>
+            <div id="other">
+            <?php 
                         $host = "localhost";
                         $dbusername = "root";
                         $dbpassword = "";
@@ -387,7 +373,75 @@
                         }else{
                             echo "no products found in this category";
                         }
-                    }   ?>";
+                    }   ?>
+            </div>
+                
+                    <script>
+                        function flower() {
+                            var x = document.getElementById("flower");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                            
+                        }
+                        function vapeCarts() {
+                            var x = document.getElementById("vape carts");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+
+                        function concentrates() {
+                            var x = document.getElementById("concentrates");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+                        function edibles() {
+                            var x = document.getElementById("edibles");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+                        function glass() {
+                            var x = document.getElementById("glass");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+                        function topicals() {
+                            var x = document.getElementById("topicals");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+                        function prerolls() {
+                            var x = document.getElementById("prerolls");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+                        function other() {
+                            var x = document.getElementById("prerolls");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
                         }
                     </script>
     
