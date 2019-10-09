@@ -182,6 +182,7 @@
 			</div>
 			<div class="row">
 				<div class="items col-md-12" style="overflow-x:auto">
+                
             <div id="flower">
                 <?php 
                         $host = "localhost";
@@ -224,7 +225,7 @@
                         if($result-> num_rows > 0){
                             while($row = $result-> fetch_assoc()){
                                 $productname = $row["productname"];
-                                echo "<button type='button' class='btn btn-secondary btn-lg'>$productname</button>"; 
+                                echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
                               }
                         }else{
                             echo "no products found in this category";
@@ -248,7 +249,7 @@
                         if($result-> num_rows > 0){
                             while($row = $result-> fetch_assoc()){
                                 $productname = $row["productname"];
-                                echo "<button type='button' class='btn btn-secondary btn-lg'>$productname</button>"; 
+                                echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
                               }
                         }else{
                             echo "no products found in this category";
@@ -272,7 +273,7 @@
                         if($result-> num_rows > 0){
                             while($row = $result-> fetch_assoc()){
                                 $productname = $row["productname"];
-                                echo "<button type='button' class='btn btn-secondary btn-lg'>$productname</button>"; 
+                                echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
                               }
                         }else{
                             echo "no products found in this category";
@@ -296,7 +297,7 @@
                         if($result-> num_rows > 0){
                             while($row = $result-> fetch_assoc()){
                                 $productname = $row["productname"];
-                                echo "<button type='button' class='btn btn-secondary btn-lg'>$productname</button>"; 
+                                echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
                               }
                         }else{
                             echo "no products found in this category";
@@ -320,7 +321,7 @@
                         if($result-> num_rows > 0){
                             while($row = $result-> fetch_assoc()){
                                 $productname = $row["productname"];
-                                echo "<button type='button' class='btn btn-secondary btn-lg'>$productname</button>"; 
+                                echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
                               }
                         }else{
                             echo "no products found in this category";
@@ -344,7 +345,7 @@
                         if($result-> num_rows > 0){
                             while($row = $result-> fetch_assoc()){
                                 $productname = $row["productname"];
-                                echo "<button type='button' class='btn btn-secondary btn-lg'>$productname</button>"; 
+                                echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
                               }
                         }else{
                             echo "no products found in this category";
@@ -368,7 +369,7 @@
                         if($result-> num_rows > 0){
                             while($row = $result-> fetch_assoc()){
                                 $productname = $row["productname"];
-                                echo "<button type='button' class='btn btn-secondary btn-lg'>$productname</button>"; 
+                                echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>"; 
                               }
                         }else{
                             echo "no products found in this category";
@@ -377,17 +378,47 @@
             </div>
                 
                     <script>
+                    var y = document.getElementById("flower");
+                    y.style.display = "none";
+                    var x = document.getElementById("vape carts");
+                    x.style.display = "none";
+                    var z = document.getElementById("concentrates");
+                    z.style.display = "none";
+                    var a = document.getElementById("edibles");
+                    a.style.display = "none";
+                    var b = document.getElementById("glass");
+                    b.style.display = "none";
+                    var c = document.getElementById("topicals");
+                    c.style.display = "none";
+                    var d = document.getElementById("prerolls");
+                    d.style.display = "none";
+                    var e = document.getElementById("other");
+                    e.style.display = "none";
+
+
                         function flower() {
-                            var x = document.getElementById("flower");
-                            if (x.style.display === "none") {
-                                x.style.display = "block";
+                            x.style.display = "none";
+                            z.style.display = "none";
+                            a.style.display = "none";
+                            b.style.display = "none";
+                            c.style.display = "none";
+                            d.style.display = "none";
+                            e.style.display = "none";
+                            if (y.style.display === "none") {
+                                y.style.display = "block";
                             } else {
-                                x.style.display = "none";
+                                y.style.display = "none";
                             }
                             
                         }
                         function vapeCarts() {
-                            var x = document.getElementById("vape carts");
+                            y.style.display = "none";
+                            z.style.display = "none";
+                            a.style.display = "none";
+                            b.style.display = "none";
+                            c.style.display = "none";
+                            d.style.display = "none";
+                            e.style.display = "none";
                             if (x.style.display === "none") {
                                 x.style.display = "block";
                             } else {
@@ -396,51 +427,87 @@
                         }
 
                         function concentrates() {
-                            var x = document.getElementById("concentrates");
-                            if (x.style.display === "none") {
-                                x.style.display = "block";
+                            y.style.display = "none";
+                            x.style.display = "none";
+                            a.style.display = "none";
+                            b.style.display = "none";
+                            c.style.display = "none";
+                            d.style.display = "none";
+                            e.style.display = "none";
+                            if (z.style.display === "none") {
+                                z.style.display = "block";
                             } else {
-                                x.style.display = "none";
+                                z.style.display = "none";
                             }
                         }
                         function edibles() {
-                            var x = document.getElementById("edibles");
-                            if (x.style.display === "none") {
-                                x.style.display = "block";
+                            y.style.display = "none";
+                            x.style.display = "none";
+                            z.style.display = "none";
+                            b.style.display = "none";
+                            c.style.display = "none";
+                            d.style.display = "none";
+                            e.style.display = "none";
+                            if (a.style.display === "none") {
+                                a.style.display = "block";
                             } else {
-                                x.style.display = "none";
+                                a.style.display = "none";
                             }
                         }
                         function glass() {
-                            var x = document.getElementById("glass");
-                            if (x.style.display === "none") {
-                                x.style.display = "block";
+                            y.style.display = "none";
+                            x.style.display = "none";
+                            a.style.display = "none";
+                            z.style.display = "none";
+                            c.style.display = "none";
+                            d.style.display = "none";
+                            e.style.display = "none";
+                            if (b.style.display === "none") {
+                                b.style.display = "block";
                             } else {
-                                x.style.display = "none";
+                                b.style.display = "none";
                             }
                         }
                         function topicals() {
-                            var x = document.getElementById("topicals");
-                            if (x.style.display === "none") {
-                                x.style.display = "block";
+                            y.style.display = "none";
+                            x.style.display = "none";
+                            a.style.display = "none";
+                            b.style.display = "none";
+                            z.style.display = "none";
+                            d.style.display = "none";
+                            e.style.display = "none";
+                            if (c.style.display === "none") {
+                                c.style.display = "block";
                             } else {
-                                x.style.display = "none";
+                                c.style.display = "none";
                             }
                         }
                         function prerolls() {
-                            var x = document.getElementById("prerolls");
-                            if (x.style.display === "none") {
-                                x.style.display = "block";
+                            y.style.display = "none";
+                            x.style.display = "none";
+                            a.style.display = "none";
+                            b.style.display = "none";
+                            z.style.display = "none";
+                            z.style.display = "none";
+                            e.style.display = "none";
+                            if (d.style.display === "none") {
+                                d.style.display = "block";
                             } else {
-                                x.style.display = "none";
+                                d.style.display = "none";
                             }
                         }
                         function other() {
-                            var x = document.getElementById("prerolls");
-                            if (x.style.display === "none") {
-                                x.style.display = "block";
+                            y.style.display = "none";
+                            x.style.display = "none";
+                            a.style.display = "none";
+                            b.style.display = "none";
+                            z.style.display = "none";
+                            d.style.display = "none";
+                            z.style.display = "none";
+                            if (e.style.display === "none") {
+                                e.style.display = "block";
                             } else {
-                                x.style.display = "none";
+                                e.style.display = "none";
                             }
                         }
                     </script>
