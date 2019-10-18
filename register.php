@@ -1,37 +1,8 @@
 <?php
-    $host = "localhost";
-    $dbusername = "root";
-    $dbpassword = "";
-    $dbname = "poswebsite";
-    $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-    if(mysqli_connect_error()){
-        die('Connect Error ('.mysqli_connect_errno() .')'
-        . mysqli_connect_error());
-    }else{       
-        $sql = "SELECT productname, weight, unit, unitprice, total 
-        from products";
-        $result = $conn-> query($sql);
-       $grandtotal = 0;
-        if($result-> num_rows > 0){
-            while($row = $result-> fetch_assoc()){
-              $productname = $row["productname"];
-              $weight = $row["weight"];
-              $unit = $row["unit"];
-              $unitprice = $row["unitprice"];
-              $total = $row["total"];
-                 "<tr><td>". $row["productname"] . "</td>
-                <td>". $row["weight"] . "g" . "</td>
-                <td>". $row["unit"] . "</td>
-                <td>". "$" . $row["unitprice"] . "</td>
-                <td>". "$" . $row["total"] . "</td><td>";
-                $grandtotal = $grandtotal + $total;
-            }
-            echo "</table>";
-        }else{
-            echo "no product was found from this search";
-        }       
-        $conn->close();
-    }
+    session_start();
+    require_once("DBController.php");
+    $db_handle = new DBController();
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,6 +88,118 @@
         .pricewindow{
             background-color: rgba(26, 124, 82, 0.15);
         }
+        body {
+	font-family: Arial;
+	color: #211a1a;
+	font-size: 0.9em;
+}
+
+#shopping-cart {
+	margin: 40px;
+}
+
+#product-grid {
+	margin: 40px;
+}
+
+#shopping-cart table {
+	width: 100%;
+	background-color: #F0F0F0;
+}
+
+#shopping-cart table td {
+	background-color: #FFFFFF;
+}
+
+.txt-heading {
+	color: #211a1a;
+	border-bottom: 1px solid #E0E0E0;
+	overflow: auto;
+}
+
+#btnEmpty {
+	background-color: #ffffff;
+	border: #d00000 1px solid;
+	padding: 5px 10px;
+	color: #d00000;
+	float: right;
+	text-decoration: none;
+	border-radius: 3px;
+	margin: 10px 0px;
+}
+
+.btnAddAction {
+    padding: 5px 10px;
+    margin-left: 5px;
+    background-color: #efefef;
+    border: #E0E0E0 1px solid;
+    color: #211a1a;
+    float: right;
+    text-decoration: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#product-grid .txt-heading {
+	margin-bottom: 18px;
+}
+
+.product-item {
+	float: left;
+	background: #ffffff;
+	margin: 30px 30px 0px 0px;
+	border: #E0E0E0 1px solid;
+}
+
+
+.clear-float {
+	clear: both;
+}
+
+.demo-input-box {
+	border-radius: 2px;
+	border: #CCC 1px solid;
+	padding: 2px 1px;
+}
+
+.tbl-cart {
+	font-size: 0.9em;
+    width: 100%;
+}
+
+.tbl-cart th {
+	font-weight: normal;
+}
+
+.product-title {
+	margin-bottom: 20px;
+}
+
+.product-price {
+	float:left;
+}
+
+.cart-action {
+	float: right;
+}
+
+.product-quantity {
+    padding: 5px 10px;
+    border-radius: 3px;
+    width: 10%;
+    border: #E0E0E0 1px solid;
+}
+
+.product-tile-footer {
+    padding: 15px 15px 0px 15px;
+    overflow: auto;
+}
+
+.no-records {
+	text-align: center;
+	clear: both;
+	margin: 38px 0px;
+}
     </style>
     
 </head>
@@ -171,42 +254,125 @@
 						Other
 					</button>
 				</div>
-				<div class="col-md-6 orderwindow" style="overflow:auto">
+				<div class="col-md-10 orderwindow" style="overflow:auto">
+                <a id="btnEmpty" href="register.php?action=empty">Empty Cart</a>
                     <p>Products Added to Cart:</p>
+                    
                     <hr>
-				</div>
-                <div class="col-md-3 pricewindow" style="overflow:auto">
-                    <p>Cost of Items in Cart:</p>
-                    <hr>
-				</div>
+                    <?php
+
+if(!empty($_GET["action"])) {
+switch($_GET["action"]) {
+	case "add":
+		if(!empty($_POST["quantity"])) {
+			$productByCode = $db_handle->runQuery("SELECT * FROM PRODUCTS WHERE productname='" . $_GET["productname"] . "'");
+			$itemArray = array($productByCode[0]["productname"]=>array('productname'=>$productByCode[0]["productname"], 'productname'=>$productByCode[0]["productname"], 'quantity'=>$_POST["quantity"], 'unitprice'=>$productByCode[0]["unitprice"]));
+			
+			if(!empty($_SESSION["cart_item"])) {
+				if(in_array($productByCode[0]["productname"],array_keys($_SESSION["cart_item"]))) {
+					foreach($_SESSION["cart_item"] as $k => $v) {
+							if($productByCode[0]["productname"] == $k) {
+								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+									$_SESSION["cart_item"][$k]["quantity"] = 0;
+								}
+								$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+							}
+					}
+				} else {
+					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+				}
+			} else {
+				$_SESSION["cart_item"] = $itemArray;
+			}
+		}
+	break;
+	case "remove":
+		if(!empty($_SESSION["cart_item"])) {
+			foreach($_SESSION["cart_item"] as $k => $v) {
+					if($_GET["productname"] == $k)
+						unset($_SESSION["cart_item"][$k]);				
+					if(empty($_SESSION["cart_item"]))
+						unset($_SESSION["cart_item"]);
+			}
+		}
+	break;
+	case "empty":
+		unset($_SESSION["cart_item"]);
+	break;	
+}
+}
+?>
+<BODY>
+<div id="shopping-cart">
+
+
+<?php
+if(isset($_SESSION["cart_item"])){
+    $total_quantity = 0;
+    $total_price = 0;
+?>	
+<table class="tbl-cart" cellpadding="10" cellspacing="1">
+<tbody>
+<tr>
+<th style="text-align:left;"  width="10%">Name</th>
+<th style="text-align:right;" width="5%">Quantity</th>
+<th style="text-align:right;" width="10%">Unit Price</th>
+<th style="text-align:right;" width="10%">Price</th>
+<th style="text-align:center;" width="5%">Remove</th>
+</tr>	
+<?php		
+    foreach ($_SESSION["cart_item"] as $item){
+        $item_price = $item["quantity"]*$item["unitprice"];
+		?>
+				<tr>
+				<td><?php echo $item["productname"]; ?></td>
+				<td style="text-align:right;"><?php echo $item["quantity"]; ?></td>
+				<td  style="text-align:right;"><?php echo "$ ".$item["unitprice"]; ?></td>
+				<td  style="text-align:right;"><?php echo "$ ". number_format($item_price,2); ?></td>
+				<td style="text-align:center;"><a href="register.php?action=remove&productname=<?php echo $item["productname"]; ?>" class="btnRemoveAction"> Remove Item </a></td>
+				</tr>
+				<?php
+				$total_quantity += $item["quantity"];
+				$total_price += ($item["unitprice"]*$item["quantity"]);
+		}
+		?>
+<tr>
+<td colspan="2" align="right">Total:</td>
+<td align="right" colspan="2"><strong><?php echo "$ ".number_format($total_price, 2); ?></strong></td>
+<td></td>
+</tr>
+
+</tbody>
+</table>		
+  <?php
+} else {
+?>
+<div class="no-records">Your Cart is Empty</div>
+<?php 
+}
+?>
+</div>
+
+</div>      
 			</div>
-			<div class="row">
 				<div class="items col-md-12" style="overflow-x:auto">
-                
-            <div id="flower">
-                <?php 
-                        $host = "localhost";
-                        $dbusername = "root";
-                        $dbpassword = "";
-                        $dbname = "poswebsite";
-                        $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-                        if(mysqli_connect_error()){
-                            die('Connect Error ('.mysqli_connect_errno() .')'
-                            . mysqli_connect_error());
-                        }else{
-                            $sql = "SELECT productname, weight, unit, unitprice, total 
-                            from products WHERE productType = 'flowers'";
-                            $result = $conn-> query($sql);
-                            if($result-> num_rows > 0){
-                                while($row = $result-> fetch_assoc()){
-                                 $productname = $row["productname"];
-                                 echo "<button type='button' class='btn btn-secondary btn-lg' value='$productname' id='$productname' onclick='productbutton()' data-toggle='modal' data-target='#myModal'>$productname</button>";
-                                        }
-                                    
-                            }else{
-                                echo "no products found in this category";
-                            }
-                        }?>
+
+<div id="flower">
+<?php
+	$product_array = $db_handle->runQuery("SELECT productname, weight, unit, unitprice, total 
+    from products WHERE productType = 'flowers'");
+	if (!empty($product_array)) { 
+		foreach($product_array as $key=>$value){
+	?>
+        <form method="post" action="register.php?action=add&productname=<?php echo $product_array[$key]["productname"]; ?>">
+        <div class='cart-action'><button type='button' class='btn btn-secondary btn-lg' value='<?php echo $product_array[$key]["productname"];?>' 
+        id='<?php echo $product_array[$key]["productname"]; ?>' data-toggle='modal' data-target='#myModal'><?php echo $product_array[$key]["productname"]; ?></button>
+        </div>
+        </form>
+        <?php
+		}
+	}
+	?>
             </div>
             <div id="vape carts">
             <?php 
@@ -518,6 +684,23 @@
         
 	</div>
 </div>
+<!--?php
+	$product_array = $db_handle->runQuery("SELECT * FROM Products ORDER BY productname ASC");
+	if (!empty($product_array)) { 
+		foreach($product_array as $key=>$value){
+	?>
+		<div class="product-item">
+			<form method="post" action="register.php?action=add&productname=<--?php echo $product_array[$key]["productname"]; ?>">
+			<div class="product-tile-footer">
+			<div class="product-title"><--?php echo $product_array[$key]["productname"]; ?></div>
+			<div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2" /><input type="submit" value="Add to Cart" class="btnAddAction" /></div>
+			</div>
+			</form>
+		</div-->
+	<!--?php
+		}
+	}
+	?-->      
     
                   <div class='modal fade' id='myModal' role='dialog'>
                                  <div class='modal-dialog'>
@@ -527,24 +710,32 @@
                                        <h4 class='modal-title'></h4>
                                      </div>
                                      <div class='modal-body'>
-                                     <h2><p id='blah'></p><script>
+                                     <h2><p id='blah'></p>
+                                     <script>
                                        $('button').click(function() {
                                          document.getElementById('blah').innerHTML = this.id;
                                      });</script></h2>
-                                     <form method='post' action='register.php'>
-                                     <label for='weight'>weight in grams</label>
-                                         <input type='text' name='weight' 
-                                          placeholder=''>
+                                     
+                                     <?php
+	
+	if (!empty($product_array)) { 
+		//foreach($product_array as $key=>$value){
+	?>
+		
+			<form method="post" action="register.php?action=add&productname=<?php echo $product_array[$key]["productname"]; ?>">
+			<div class="product-tile-footer">
+			<div class="product-title"><?php echo $product_array[$key]["productname"]; ?></div>
+			<div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2" />
+            <input type="submit" value="Add to Cart" class="btnAddAction" /></div>
+			</div>
+			</form>
+		
+	<?php
+		//}
+	}
+	?>
                                      <p></p>
-                                     <label for='unitcount'>Unit Qty:</label>
-                                         <input type='text' name='unitcount' 
-                                          placeholder=''>
-                                     <p></p>
-                                     <label for='price'>Price $</label>
-                                     <input type='text' name='price'
-                                      placeholder=''>
-                                     <p></p>
-                                     <input type='submit' value='Submit'>
+                                     
                                    </form>
                                      </div>
                                      <div class='modal-footer'>
@@ -556,6 +747,66 @@
                                  </div>
                                </div>
 
-<!-- View in Browser: Drew's #1 Trending YouTube Tutorial -->
+<!-- after modal -->
 
+<?php
+if(isset($_POST["weight"])){
+$productname = "<h2><p id='blah'></p><script>
+$('button').click(function() {
+  document.getElementById('blah').innerHTML = this.id;
+});</script></h2>";
+echo "$productname";
+$weight = filter_input(INPUT_POST, 'weight');
+$unit = filter_input(INPUT_POST, 'unitcount');
+$unitprice = filter_input(INPUT_POST, 'price');
+
+date_default_timezone_set('America/Los_Angeles');
+$date = date('Y-m-d');
+$message = ""; 
+   $host = "localhost";
+        $dbusername = "root";
+        $dbpassword = "";
+        $dbname = "poswebsite";
+                $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+                if(mysqli_connect_error()){
+                    die('Connect Error ('.mysqli_connect_errno() .')'
+                    . mysqli_connect_error());
+                }else{
+                    if(!empty($unitprice)){
+                        if (!empty($unit)){
+                        $total = $unitprice * $unit;
+                        }
+                         else if(!empty($weight)){
+                        $total = $weight * $unitprice;
+                        }
+                    }
+                    if(!empty($total)){
+                        if(!empty($weight)){
+                            $unitprice = $total/$weight;
+                        }
+                        else if (!empty($unit)){
+                            $unitprice = $total/$unit;
+                        }
+                    }
+                    $unitprice = number_format((float) $unitprice, 2, '.', '');
+                    
+                    $sql = "UPDATE products SET weight = '$weight',
+                    unit = '$unit', unitprice = '$unitprice'
+                    WHERE productname = '$productname'";
+                     if($conn->query($sql)){
+                      header( 'Location: productlist.php' );
+                  }else{ 
+                      $message = "* This Product Name already exists";
+                  }
+                   
+                    $conn->close();
+                }
+
+
+              }
+              echo "<h2><p id='blah'></p><script>
+              $('button').click(function() {
+                document.getElementById('blah').innerHTML = this.id;
+            });</script></h2>";
+?>
 <!-- End View in Browser: Drew's #1 Trending YouTube Tutorial -->
