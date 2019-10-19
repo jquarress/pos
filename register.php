@@ -302,7 +302,7 @@ switch($_GET["action"]) {
 }
 }
 ?>
-<BODY>
+
 <div id="shopping-cart">
 
 
@@ -364,9 +364,9 @@ if(isset($_SESSION["cart_item"])){
 	if (!empty($product_array)) { 
 		foreach($product_array as $key=>$value){
 	?>
-        <form method="post" action="register.php?action=add&productname=<?php echo $product_array[$key]["productname"]; ?>">
+        <form method="post">
         <div class='cart-action'><button type='button' class='btn btn-secondary btn-lg' value='<?php echo $product_array[$key]["productname"];?>' 
-        id='<?php echo $product_array[$key]["productname"]; ?>' data-toggle='modal' data-target='#myModal'><?php echo $product_array[$key]["productname"]; ?></button>
+        id='<?php echo $product_array[$key]["productname"]; ?>' onclick='productbutton()' data-toggle='modal' data-target='#myModal'><?php echo $product_array[$key]["productname"]; ?></button>
         </div>
         </form>
         <?php
@@ -715,11 +715,14 @@ if(isset($_SESSION["cart_item"])){
                                        $('button').click(function() {
                                          document.getElementById('blah').innerHTML = this.id;
                                      });</script></h2>
-                                     
+                                     <p id='blah'></p>
+                                     <p id='blah'></p>
                                      <?php
 	
 	if (!empty($product_array)) { 
 		//foreach($product_array as $key=>$value){
+            echo $name = "<p id='blah'></p>";
+            echo $name;
 	?>
 		
 			<form method="post" action="register.php?action=add&productname=<?php echo $product_array[$key]["productname"]; ?>">
@@ -731,8 +734,8 @@ if(isset($_SESSION["cart_item"])){
 			</form>
 		
 	<?php
-		//}
-	}
+		}
+	//}
 	?>
                                      <p></p>
                                      
